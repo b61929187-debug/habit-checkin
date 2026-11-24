@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="小步习惯打卡：添加每天想坚持的小事，逐项完成，查看今日进度。"
+    />
+    <meta name="theme-color" content="#1d4939" />
+    <title>小步 · 习惯打卡</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="#" aria-label="小步习惯打卡首页">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="m7.5 12.5 3 3 6-7" />
+              </svg>
+            </span>
+            <span class="brand-name">小步</span>
+          </a>
+
+          <div class="date-block">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M16 3v4M8 3v4M3 10h18" />
+            </svg>
+            <time id="current-date"></time>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="overview" aria-labelledby="overview-heading">
+          <div class="overview-inner">
+            <div class="overview-copy">
+              <p class="eyebrow eyebrow-light">今日打卡</p>
+              <h1 id="overview-heading">今天，也完成一件小事。</h1>
+              <p class="overview-note">把注意力放回眼前，一次只做一件。</p>
+            </div>
+
+            <div class="progress-summary" aria-live="polite">
+              <div class="progress-ring" id="progress-ring">
+                <div class="progress-center">
+                  <strong id="completed-count">0</strong>
+                  <span>今日完成</span>
+                </div>
+              </div>
+              <div class="summary-copy">
+                <p class="summary-total">
+                  共 <strong id="total-count">0</strong> 项习惯
+                </p>
+                <p class="summary-message" id="progress-message">先添加一个习惯</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="workspace">
+          <section class="habits-column" aria-labelledby="habits-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">今日清单</p>
+                <h2 id="habits-heading">要做的习惯</h2>
+              </div>
+              <span class="count-badge" id="habit-count-badge">0 项</span>
+            </div>
+
+            <ul class="habit-list" id="habit-list" aria-label="今日习惯清单"></ul>
+
+            <div class="empty-state" id="empty-state" hidden>
+              <div class="empty-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M9 11l3 3L22 4" />
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                </svg>
+              </div>
+              <h2>从一个小习惯开始</h2>
+              <p>添加一件今天想坚持的事，它会出现在这里。</p>
+            </div>
+          </section>
+
+          <aside class="add-panel" aria-labelledby="add-heading">
+            <div class="add-panel-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </div>
+            <p class="eyebrow">新建</p>
+            <h2 id="add-heading">添加一个习惯</h2>
+            <p class="panel-note">写下你真正想做的那一件小事。</p>
+
+            <form id="habit-form" novalidate>
+              <label class="sr-only" for="habit-name">习惯名称</label>
+              <div class="input-wrap">
+                <input
+                  id="habit-name"
+                  name="habit-name"
+                  type="text"
+                  maxlength="20"
+                  autocomplete="off"
+                  placeholder="例如：每天喝 8 杯水"
+                />
+                <button class="add-button" type="submit">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M12 5v14" />
+                  </svg>
+                  <span>添加</span>
+                </button>
+              </div>
+              <p class="form-message" id="form-message" aria-live="polite">
+                最多 20 个字
+              </p>
+            </form>
+
+            <div class="suggestions" aria-label="快速添加习惯">
+              <span class="suggestions-label">快速添加</span>
+              <div class="suggestion-list">
+                <button class="suggestion-chip" type="button" data-suggestion="喝水">
+                  <span class="chip-mark" aria-hidden="true">+</span>
+                  <span>喝水</span>
+                </button>
+                <button class="suggestion-chip" type="button" data-suggestion="运动">
+                  <span class="chip-mark" aria-hidden="true">+</span>
+                  <span>运动</span>
+                </button>
+                <button class="suggestion-chip" type="button" data-suggestion="读书">
+                  <span class="chip-mark" aria-hidden="true">+</span>
+                  <span>读书</span>
+                </button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>今天的一小步，也算数。</p>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <span id="toast-message"></span>
+      <button class="toast-action" id="toast-action" type="button" hidden>撤销</button>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
